@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <h1 class="page-header">
+        Posts
+    </h1>
+    <table>
+        <thead>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Category</th>
+                <th scope="col">Author</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in post %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.category }}</td>
+                    <td>{{ post.author }}</td>
+                    <td>
+                        <a href="{% url 'demo:details' post.id %}" class="btn btn-primary">Details</a>
+                        <a href="{% url 'demo:edit' post.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'demo:delete' post.id %}" class="btn btn-primary">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+{% endblock %}

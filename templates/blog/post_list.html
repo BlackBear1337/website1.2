@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+    <h1 class="page-header">
+        Blogs
+    </h1>
+
+    <div class="col-md-8">
+
+        <h1 class="page-header">
+            Posts
+            <small>We have the latest news</small>
+        </h1>
+
+        <!-- First Blog Post -->
+        {% for post in post %}
+            <h2>{{ post.title }} <span class="badge bg-secondary">{{ post.id }}</span></h2>
+            <p class="lead">
+                by
+            <td>{{ post.author }}</td>
+            <p><span class="glyphicon glyphicon-time"></span>{{ post.created }}</p>
+            <hr>
+            <p>{{ post.content }}</p>
+            <a class="btn btn-primary" href="{% url 'demo:details' post.id %}">Read more<span
+                    class="glyphicon glyphicon-chevron-right"></span></a>
+
+            <hr>
+        {% endfor %}
+
+        <!-- Pager -->
+        <ul class="pager">
+            {% if page_obj.has_previous %}
+                <li class="previous">
+                    <a href="?page={{ page_obj.previous_page_number }}">&larr; Older</a>
+                </li>
+            {% endif %}
+            <div>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
+            {% if page_obj.has_next %}
+                <li class="next">
+                    <a href="?page={{ page_obj.next_page_number }}">Newer &rarr;</a>
+                </li>
+            {% endif %}
+        </ul>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_filters %}
+{% load thumbnail %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-8">
+                <!-- Featured blog post-->
+                <div class="card mb-4">
+                    <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="avatar"
+                                                                                       src="{{ post.avatar|thumbnail_url:'avatar' }}"
+                                                                                       alt="{{ details.avatar.name }}"/></div>
+                    <div class="card-body">
+                        <div class="small text-muted">{{ object.created }}</div>
+                        <h2 class="card-title">{{ object.title }}</h2>
+                        <p class="card-text">{{ object.content }}</p>
+                    </div>
+                    <hr>
+                    <a class="btn btn-primary" href="{% url 'demo:comment' %}">Comment<span
+                            class="glyphicon glyphicon-chevron-right"></span></a>
+                    <hr>
+                    {% for commens in comment %}
+                        {{ commens.text }}
+                    {% endfor %}
+                </div>
+{% endblock %}
