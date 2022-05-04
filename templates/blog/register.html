@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+    <form method="post">
+        <table>
+            {{ form|crispy }}
+        </table>
+        <button type="submit" class="btn btn-primary">Register</button>
+        {% csrf_token %}
+    </form>
+    <hr>
+    <a class="btn btn-primary" href="{% url 'demo:login' %}" role="button">Back to login</a>
+    <a class="btn btn-primary" href="{% url 'demo:index' %}" role="button">Back to Blog</a>
+{% endblock %}

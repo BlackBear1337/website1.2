@@ -8,6 +8,6 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" class="btn btn-primary"/>
+        <input type="submit" value="Send" class="btn btn-primary"/>
     </form>
 {% endblock %}

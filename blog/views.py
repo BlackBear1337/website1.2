@@ -1,7 +1,13 @@
-from django.shortcuts import render
+from django.contrib.auth import logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
-from blog.models import Post, Comment
+from blog.forms import CommentForm, PostForm
+from blog.models import Post, Comment, Blog
 
 
 class PostList(ListView):
@@ -20,19 +26,40 @@ class PostList(ListView):
         return context
 
 
-class AdminPanelView(ListView):
+class MyPostView(LoginRequiredMixin, ListView):
+    context_object_name = 'post'
+    template_name = 'blog/mypost.html'
+    login_url = reverse_lazy('demo:login')
+    extra_context = {'title': 'My Posts'}
 
-    def get(self, request):
-        post = Post.objects.all()
-        return render(request, 'blog/admin_list.html', {'post': post})
+    def get_queryset(self):
+        return Post.objects.filter(blog__slug=self.kwargs['name'])
 
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
+    login_url = reverse_lazy('demo:login')
     template_name = 'blog/post_create.html'
     extra_context = {'title': 'Create post'}
     context_object_name = 'form'
-    fields = {'title', 'content', 'draft', 'category', 'author', 'tags', 'avatar'}
+    fields = {'title', 'content', 'draft', 'category', 'tags', 'avatar'}
+    slug_field = 'post_create_slug'
+
+    def test_func(self):
+        blog_slug = self.kwargs['name']
+        user = self.request.user
+        blog = Blog.objects.get(slug=blog_slug)
+        if blog.author.user != user:
+            return False
+        return True
+
+    def post(self, request, *args, **kwargs):
+        blog_name = kwargs['name']
+        form = PostForm(data=request.POST)
+        post = form.save(commit=False)
+        post.blog = Blog.objects.get(slug=blog_name)
+        post.save()
+        return redirect('demo:index')
 
 
 class EditView(UpdateView):
@@ -55,10 +82,39 @@ class PostDelete(DeleteView):
     success_url = '/'
 
 
-class PostComment(CreateView):
+class PostComment(LoginRequiredMixin, CreateView):
     model = Comment
+    login_url = reverse_lazy('demo:login')
     extra_context = {'title': 'Comment'}
     context_object_name = 'comment'
     template_name = 'blog/post_comment.html'
-    fields = {'text', 'author', 'post'}
+    fields = {'text'}
     success_url = '/'
+
+    def post(self, request, pk, *args, **kwargs):
+        form = CommentForm(request.POST)
+        post = Post.objects.get(pk=pk)
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.save()
+        form.save_m2m()
+        return redirect('demo:details', pk=pk)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('demo:index')
+
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('demo:login')
+    template_name = 'blog/register.html'
+
+
+class LoginUserView(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'blog/login.html'
+
+    def get_success_url(self):
+        return reverse_lazy('demo:index')
