@@ -3,7 +3,7 @@
 {% block content %}
     <form method="post">
         <table>
-            {{ form|crispy }}
+            {{ register_form|crispy }}
         </table>
         <button type="submit" class="btn btn-primary">Register</button>
         {% csrf_token %}

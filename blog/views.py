@@ -1,12 +1,12 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
-from blog.forms import CommentForm, PostForm
+from blog.forms import CommentForm, PostForm, BlogForm, UserRegistrationForm
 from blog.models import Post, Comment, Blog
 
 
@@ -91,14 +91,16 @@ class PostComment(LoginRequiredMixin, CreateView):
     fields = {'text'}
     success_url = '/'
 
-    def post(self, request, pk, *args, **kwargs):
-        form = CommentForm(request.POST)
-        post = Post.objects.get(pk=pk)
-        comment = form.save(commit=False)
-        comment.post = post
-        comment.save()
-        form.save_m2m()
-        return redirect('demo:details', pk=pk)
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs['pk']
+        form = CommentForm(data=request.POST, files=request.FILES)
+        form.instance.post = Post.objects.get(id=post_id)
+        form.instance.author_id = request.user.id
+        try:
+            form.save()
+        except Exception as e:
+            print(e)
+        return redirect('demo:index')
 
 
 def logout_view(request):
@@ -106,10 +108,21 @@ def logout_view(request):
     return redirect('demo:index')
 
 
-class RegisterView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('demo:login')
-    template_name = 'blog/register.html'
+# class RegisterView(CreateView):
+#     form_class = UserCreationForm
+#     success_url = reverse_lazy('demo:login')
+#     template_name = 'blog/register.html'
+
+
+def register_view(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('demo:createblog')
+    form = UserRegistrationForm()
+    return render(request=request, template_name="blog/register.html", context={"register_form": form})
 
 
 class LoginUserView(LoginView):
@@ -118,3 +131,23 @@ class LoginUserView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('demo:index')
+
+
+class BlogCreateView(LoginRequiredMixin, CreateView):
+    model = Blog
+    fields = ('name',)
+    template_name = 'blog/post_list.html'
+    success_url = reverse_lazy('demo:index')
+    extra_context = {'title': 'Blog - Create blog'}
+    login_url = reverse_lazy('login')
+
+    def post(self, request, *args, **kwargs):
+        form = BlogForm(data=request.POST)
+        blog = form.save(commit=False)
+        blog.slug = blog.name
+        blog.author_id = request.user.id
+        try:
+            form.save()
+        except Exception as y:
+            print(y)
+        return redirect('demo:index')

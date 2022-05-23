@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9d8435f2-2dec-4a1d-bef1-4e86276deb50" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../cook_blog/.idea/cook_blog.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../cook_blog/Cook/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../blog/tests/tests_add_posts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../blog/tests/tests_login.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../blog/tests/tests_register.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/.idea/Урок.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/Blog/.idea/Blog.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/Blog/website/.idea/website.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/lesson08/.idea/lesson08.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/lesson09/.idea/lesson09.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/lesson10/.idea/lesson10.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/lesson12/.idea/lesson12.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/lesson14/.idea/lesson14.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Урок/lesson15/.idea/lesson15.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../blog.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../../blog.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../blog/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../blog/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../blog/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../blog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../blog/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../blog/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/post_list.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="29TGOmZwodsHwjxLOwuw0pasfAh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Урок/Blog/website" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9d8435f2-2dec-4a1d-bef1-4e86276deb50" name="Changes" comment="" />
+      <created>1653129632197</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1653129632197</updated>
+      <workItem from="1653129633376" duration="22000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

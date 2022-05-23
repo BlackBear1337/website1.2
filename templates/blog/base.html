@@ -54,12 +54,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 {% if request.user.is_authenticated %}
-                        <li>
+                    <li>
+                        {% if user.author %}
                             <a href="{% url 'demo:create' user.author.blog.slug %}">New post</a>
-                        </li>
-                        <li>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if user.author %}
                             <a href="{% url 'demo:my_posts' user.author.blog.slug %}">My post</a>
-                        </li>
+                        {% endif %}
+                    </li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
